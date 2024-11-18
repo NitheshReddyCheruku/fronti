@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Service/auth.service';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,DashboardComponent],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -29,7 +30,13 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          if (response.isSuccess) {
+          // Store the username in localStorage or service
+          localStorage.setItem('currentUser', this.loginForm.get('userName')?.value);
+          
+          // Check username and navigate accordingly
+          if (this.loginForm.get('userName')?.value === 'nitheshs938@gmail.com') {
+            this.router.navigate(['/dashboard']);
+          } else {
             this.router.navigate(['/employees']);
           }
         },

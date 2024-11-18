@@ -18,6 +18,7 @@ export interface RegistrationRequest {
 }
 
 export interface User {
+role: any;
   id: string;
   email: string;
   name: string;
@@ -28,6 +29,8 @@ export interface Employee {
   id: string;
   userName: string;
   email: string;
+  name?: string;
+  role:string;
 }
 
 export interface Response<T> {
